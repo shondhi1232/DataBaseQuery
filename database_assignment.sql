@@ -1,5 +1,5 @@
 
--- show all data from table
+-- show all data from table--
 -- SELECT * FROM customers ;
 
 -- 1. Creating database query
@@ -63,23 +63,35 @@ SELECT * FROM customers
 WHERE Points = (SELECT MAX(Points) FROM customers );
 
 -- 11. Execute a query for the following scenario
--- 11.1
-SELECT Points AS bronze_member , FirstName, LastName, Phone ,Address, City
-FROM customers
-WHERE (Points<1000);
+SELECT * ,
+(CASE
+  WHEN Points<1000 THEN 'The bronze member'
+  WHEN (Points > 1000 AND Points < 2000) THEN 'The Silver member'
+  WHEN (Points > 2000) AND (Points < 3000) THEN 'The Gold member'
+  ELSE 'The Platinum member'
+END ) AS Points
+FROM customers;
 
--- 11.2
-SELECT * FROM customers 
-WHERE Points =(SELECT Points AS Silver_member
-FROM customers
-WHERE (Points > 1000 AND Points < 2000));
 
--- 11.3
-SELECT Points AS gold_member , FirstName, LastName , Phone ,Address, City
-FROM customers 
-WHERE (Points > 2000) AND (Points < 3000);
 
--- 11.4
-SELECT Points AS platinum_member , FirstName, LastName , Phone ,Address, City
-FROM customers 
-WHERE (Points > 3000);
+-- if we want write the query separately--
+-- 11.1--
+-- SELECT Points AS bronze_member , FirstName, LastName, Phone ,Address, City
+-- FROM customers
+-- WHERE (Points<1000);
+
+-- 11.2--
+-- SELECT * FROM customers 
+-- WHERE Points =(SELECT Points AS Silver_member
+-- FROM customers
+-- WHERE (Points > 1000 AND Points < 2000));
+
+-- 11.3--
+-- SELECT Points AS gold_member , FirstName, LastName , Phone ,Address, City
+-- FROM customers 
+-- WHERE (Points > 2000) AND (Points < 3000);
+
+-- 11.4--
+-- SELECT Points AS platinum_member , FirstName, LastName , Phone ,Address, City
+-- FROM customers 
+-- WHERE (Points > 3000);
